@@ -30,7 +30,10 @@ class LoginPage extends StatelessWidget {
   Widget _backgroundCover(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.42,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height * 0.42,
       color: Colors.purple,
     );
   }
@@ -63,9 +66,15 @@ class LoginPage extends StatelessWidget {
 
   Widget _boxform(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.45,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height * 0.45,
       margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.33,
+        top: MediaQuery
+            .of(context)
+            .size
+            .height * 0.33,
         left: 30,
         right: 30,
       ),
@@ -147,11 +156,15 @@ class LoginPage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
+          padding: EdgeInsets.symmetric(
+              vertical: 12), // Added padding for better appearance
         ),
         child: Text(
-          'LOGIN',
+          'Iniciar sesión',
           style: TextStyle(
             color: Colors.black,
+            fontWeight: FontWeight.bold, // Makes text bold
+            fontSize: 18, // Increased font size
           ),
         ),
       ),

@@ -18,21 +18,65 @@ class LoginController extends GetxController {
       ProgressDialog progressDialog = ProgressDialog(context: context);
       progressDialog.show(max: 100, msg: 'Verificando Datos');
 
-      ResponseAPi responseAPi = await usersProvider.login(email, password);
+      try {
+        ResponseAPi responseAPi = await usersProvider.login(email, password);
 
-      print('ResponseApi : ${responseAPi.toJson()}');
+        // Imprimimos la respuesta del API para depuración
+        print('ResponseApi : ${responseAPi.toJson()}');
 
-      if (responseAPi.success == true) {
-        // Guarda el token en GetStorage
-        GetStorage().write('authToken', responseAPi.token);
+        if (responseAPi.success == true) {
+          // Guarda el token en GetStorage si el inicio de sesión es exitoso
+          GetStorage().write('authToken', responseAPi.token);
+          progressDialog.close();
+          goToCtrldasboardHomePage();
+        } else {
+          // Cierra el diálogo de progreso y muestra un diálogo de error
+          progressDialog.close();
+          _showErrorDialog(context, 'Login Fallido', responseAPi.message ?? 'Error desconocido');
+        }
+      } catch (e) {
+        // Cierra el diálogo de progreso y registra el error
         progressDialog.close();
-        goToCtrldasboardHomePage();
-      } else {
-        Get.snackbar('Login Fallido', responseAPi.message ?? 'Error desconocido');
-        progressDialog.close();
+        print('Login Error: $e');
+        // Muestra un diálogo de error con detalles de la excepción
+        _showErrorDialog(context, 'Excepción de Login', e.toString());
       }
     }
   }
+
+
+  void _showErrorDialog(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: Text(
+            title,
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            message,
+            style: TextStyle(color: Colors.grey[800]),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK', style: TextStyle(color: Colors.white)),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.purpleAccent,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   void goToHomePage() {
     Get.offNamedUntil('/home', (route) => false);
@@ -48,17 +92,17 @@ class LoginController extends GetxController {
 
   bool isValidForm(String email, String password) {
     if (email.isEmpty) {
-      Get.snackbar('Formulario no valido', 'Debes ingresar tu Correo');
+      _showErrorDialog(Get.context!, 'Formulario no válido', 'Debes ingresar tu Correo');
       return false;
     }
 
     if (!GetUtils.isEmail(email)) {
-      Get.snackbar('Formulario no valido', 'El Correo no es valido');
+      _showErrorDialog(Get.context!, 'Formulario no válido', 'El Correo no es válido');
       return false;
     }
 
     if (password.isEmpty) {
-      Get.snackbar('Formulario no valido', 'Debes ingresar tu Contraseña');
+      _showErrorDialog(Get.context!, 'Formulario no válido', 'Debes ingresar tu Contraseña');
       return false;
     }
 

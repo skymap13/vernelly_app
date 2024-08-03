@@ -5,7 +5,7 @@ import 'package:vernelly_app/src/pages/contacts/contacts_page.dart';
 import 'package:vernelly_app/src/pages/dashboard/dashboard_page.dart';
 import 'package:vernelly_app/src/pages/inventory/inventory_page.dart';
 import 'package:vernelly_app/src/pages/sales/sales_page.dart';
-import 'package:vernelly_app/src/pages/settings/settings_page.dart';
+import 'package:vernelly_app/src/pages/settings_user/settings_user_page.dart';
 
 class CtrldasboardHome extends StatelessWidget {
   final CtrldasboardController con = Get.put(CtrldasboardController());

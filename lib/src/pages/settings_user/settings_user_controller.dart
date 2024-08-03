@@ -278,6 +278,7 @@ class SettingsController extends GetxController {
           sheetObject.cell(CellIndex.indexByString("H${i + 2}")).value = TextCellValue(user.estado ?? '');
         }
 
+
         var fileBytes = excel.save();
         if (fileBytes == null) {
           Get.snackbar('Error', 'No se pudo generar el archivo Excel.');

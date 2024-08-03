@@ -67,17 +67,27 @@ class SalesOrdersPage extends StatelessWidget {
           );
         }
       }),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.purpleAccent,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.purpleAccent,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(15), // Increased padding for better alignment and appearance
           child: ElevatedButton.icon(
             onPressed: con.downloadReport,
-            icon: Icon(Icons.download),
-            label: Text('Descargar Reporte'),
+            icon: Icon(Icons.download, size: 24), // Larger icon size for better visibility
+            label: Text('Descargar Reporte', style: TextStyle(fontSize: 16)), // Larger text size for readability
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
               foregroundColor: Colors.purpleAccent,
+              backgroundColor: Colors.white,
+              minimumSize: Size(double.infinity, 50), // Makes the button larger and fills the space
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30), // Rounded edges for the button
+              ),
             ),
           ),
         ),
@@ -146,7 +156,7 @@ class SalesOrdersPage extends StatelessWidget {
           }),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(context). pop(),
               child: Text('CANCELAR'),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.grey,

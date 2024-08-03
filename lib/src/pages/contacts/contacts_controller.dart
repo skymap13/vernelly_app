@@ -13,7 +13,7 @@ class ContactsController extends GetxController {
   var searchQuery = ''.obs;
   var contacts = <Contact>[].obs;
   var isLoading = false.obs;
-  var contactDetails = Rxn<Contact>();
+  var contactDetails = Contact().obs;
   var isLoadingDetails = false.obs;
 
   @override
@@ -82,7 +82,7 @@ class ContactsController extends GetxController {
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
         print('Response JSON: $jsonResponse');
-        contactDetails.value = Contact.fromJson((jsonResponse['result'] as List).first);
+        contactDetails.value = Contact.fromJson(jsonResponse['result'][0]);
         print('Contact Details: ${contactDetails.value}');
       } else {
         Get.snackbar('Error', 'Error al traer los detalles del contacto');

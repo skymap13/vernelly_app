@@ -108,39 +108,76 @@ class _InventoryProductsPageState extends State<InventoryProductsPage> {
           );
         }
       }),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.purpleAccent,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () => _showAddProductDialog(context, con),
-                  icon: Icon(Icons.add),
-                  label: Text('Agregar Producto'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.purpleAccent,
-                  ),
-                ),
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () => con.downloadReport(),
-                  icon: Icon(Icons.download),
-                  label: Text('Descargar Reporte'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.purpleAccent,
-                  ),
-                ),
-              ),
-            ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.purpleAccent,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
           ),
         ),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            GestureDetector(
+              onTap: () => _showAddProductDialog(context, con),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 250),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.add, color: Colors.purpleAccent),
+                    SizedBox(width: 10),
+                    Text('Agregar Producto', style: TextStyle(color: Colors.purpleAccent)),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => con.downloadReport(),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 250),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.download, color: Colors.purpleAccent),
+                    SizedBox(width: 10),
+                    Text('Descargar Reporte', style: TextStyle(color: Colors.purpleAccent)),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+
     );
   }
 
@@ -640,6 +677,4 @@ class _InventoryProductsPageState extends State<InventoryProductsPage> {
       },
     );
   }
-
-
 }

@@ -43,8 +43,9 @@ class DashboardPage extends StatelessWidget {
             ),
             Expanded(
               child: RefreshIndicator(
-                onRefresh: () => con.fetchDashboardData('2024'), // Ajusta el año según tus necesidades
+                onRefresh: () => con.fetchDashboardData('2024'),
                 child: ListView(
+                  padding: EdgeInsets.all(8.0),
                   children: [
                     DashboardCard(
                       title: 'Cantidad de productos',
@@ -58,6 +59,7 @@ class DashboardPage extends StatelessWidget {
                       title: 'Cantidad de pedidos',
                       value: con.dashboardData.value.cantPedidos?.toString() ?? 'N/A',
                     ),
+                    SizedBox(height: 20), // Añadir espacio entre las tarjetas y los gráficos
                     // Aquí añadimos los gráficos
                     FutureBuilder<DashboardData>(
                       future: Future.value(con.dashboardData.value),

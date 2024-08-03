@@ -12,7 +12,7 @@ import 'package:vernelly_app/src/pages/login/login_page.dart';
 import 'package:vernelly_app/src/pages/sales/carts/sales_carts_page.dart';
 import 'package:vernelly_app/src/pages/sales/orders/sales_orders_page.dart';
 import 'package:vernelly_app/src/pages/sales/sales_page.dart';
-import 'package:vernelly_app/src/pages/settings/settings_page.dart';
+import 'package:vernelly_app/src/pages/settings_user/settings_user_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

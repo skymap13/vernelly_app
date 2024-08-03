@@ -20,12 +20,12 @@ class Contact {
   factory Contact.fromJson(Map<String, dynamic> json) {
     return Contact(
       id: json['id'],
-      firstName: json['nombres'] ?? 'N/A',
-      lastName: json['apellidos'] ?? 'N/A',
-      email: json['correo'] ?? 'N/A',
-      message: json['mensaje'] ?? 'N/A',
-      date: json['fecha_ingreso'] ?? 'N/A',
-      senderName: json['usuario_quien_envia'] ?? 'N/A',
+      firstName: json['nombres'],
+      lastName: json['apellidos'],
+      email: json['correo'],
+      message: json['mensaje'],
+      date: json['fecha_ingreso'],
+      senderName: json['usuario_ingreso'], // Asegúrate de que esta clave coincide con el backend
     );
   }
 }

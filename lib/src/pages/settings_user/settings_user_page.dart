@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:vernelly_app/src/models/settings_users/user_model_data.dart';
-import 'package:vernelly_app/src/pages/settings/settings_controller.dart';
+import 'package:vernelly_app/src/pages/settings_user/settings_user_controller.dart';
 import 'package:flutter/services.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -88,38 +87,73 @@ class _SettingsPageState extends State<SettingsPage> {
           );
         }
       }),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.purpleAccent,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () => _showAddUserDialog(context, con),
-                  icon: Icon(Icons.add),
-                  label: Text('Agregar Usuario'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.purpleAccent,
-                  ),
-                ),
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () => con.downloadReport(),
-                  icon: Icon(Icons.download),
-                  label: Text('Descargar Reporte'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.purpleAccent,
-                  ),
-                ),
-              ),
-
-            ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.purpleAccent,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
           ),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            GestureDetector(
+              onTap: () => _showAddUserDialog(context, con),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 250),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.add, color: Colors.purpleAccent),
+                    SizedBox(width: 10),
+                    Text('Agregar Usuario', style: TextStyle(color: Colors.purpleAccent)),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => con.downloadReport(),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 250),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.download, color: Colors.purpleAccent),
+                    SizedBox(width: 10),
+                    Text('Descargar Reporte', style: TextStyle(color: Colors.purpleAccent)),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -435,17 +469,5 @@ class _SettingsPageState extends State<SettingsPage> {
         );
       },
     );
-  }
-
-
-}
-
-Future<void> _requestStoragePermission() async {
-  var status = await Permission.storage.request();
-  if (status.isGranted) {
-    // Permiso concedido, puedes acceder al almacenamiento
-  } else {
-    // Permiso denegado, muestra un mensaje de error
-    Get.snackbar('Error', 'Permiso de almacenamiento denegado.');
   }
 }

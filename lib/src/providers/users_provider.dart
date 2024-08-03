@@ -20,24 +20,29 @@ class UsersProvider extends GetConnect {
 
     if (response.body == null) {
       Get.snackbar('ERROR', 'No se pudo ejecutar la petición');
-      return ResponseAPi();
+      return ResponseAPi(message: 'No se pudo ejecutar la petición');
     }
 
     if (response.statusCode != 200) {
-      Get.snackbar('ERROR', 'Error en la solicitud');
-      return ResponseAPi();
+      Get.snackbar('ERROR', 'Error en la solicitud: ${response.statusCode}');
+      return ResponseAPi(message: 'Error en la solicitud');
     }
 
-    if (response.headers?['content-type']?.contains('application/json') == true) {
+    try {
       var responseBody = response.body;
       if (responseBody is String) {
         responseBody = jsonDecode(responseBody);
       }
       ResponseAPi responseAPi = ResponseAPi.fromJson(responseBody);
+      // Asumir éxito si el token no es null, incluso si success es null
+      if (responseAPi.token != null && responseAPi.success == null) {
+        responseAPi.success = true;
+      }
       return responseAPi;
-    } else {
-      Get.snackbar('ERROR', 'La respuesta no es un JSON válido');
-      return ResponseAPi();
+    } catch (e) {
+      Get.snackbar('ERROR', 'Error al parsear la respuesta: ${e.toString()}');
+      return ResponseAPi(message: 'Error al parsear la respuesta');
     }
   }
+
 }
